@@ -1,0 +1,235 @@
+// shadow
+$shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)
+
+// spacing
+$margin: 2rem
+$margin-large: 4rem
+
+// radius
+$border-radius: 0.25rem
+
+// font
+$font-primary: 'Roboto', sans-serif
+$font-secondary: 'Merriweather', serif
+
+*
+  margin: 0
+  padding: 0
+  box-sizing : border-box
+  padding: 0
+  margin: 0
+
+body
+  font-family: $font-primary
+  font-size: 1rem
+  font-weight: 300
+  line-height: 1.5
+  background-color: #f5f0eb
+
+a
+  text-decoration: none
+  color: #7db4cf
+
+// layout
+.container
+  max-width: 1000px
+  margin: 0 auto
+  padding-left: 2rem
+  padding-right: 2rem
+  @media (max-width: 767px)
+    padding-left: 0
+    padding-right: 0
+
+.flex
+  display: flex
+aside
+  flex: 0 0 240px
+  margin-right: $margin
+main
+  flex: 1
+
+// header
+header
+  margin-bottom: $margin
+  background-color: gray
+  color: white
+  box-shadow: $shadow
+  a
+    text-decoration: none
+    color: white
+    padding: 1rem
+  .brand,
+  .nav-left,
+  .nav-right
+    display: inline-block
+  .brand
+    padding-right: 2rem
+    padding-top: 1rem
+    padding-bottom: 1rem
+  .nav-right
+    padding-top: 1rem
+    padding-bottom: 1rem
+    float: right
+    a
+      padding-right: 0
+
+// sections
+section
+  background-color: white
+  padding: 2rem
+  margin-bottom: $margin
+  box-shadow: $shadow
+  border-radius: $border-radius
+  @media (max-width: 767px)
+    padding: 1rem
+    border-radius: 0
+    box-shadow: none
+
+.post-feed
+  box-shadow: $shadow
+  &:nth-child(2)
+    border-top-left-radius: $border-radius
+    border-top-right-radius: $border-radius
+  &:last-child
+    border-bottom-left-radius: $border-radius
+    border-bottom-right-radius: $border-radius
+    margin-bottom: $margin-large
+  background-color: white
+
+  .post
+    padding: 1rem 2rem
+
+  .post-details
+    margin-right: 2rem
+    margin-left: 2rem
+    margin-bottom: 1rem
+    li
+      display: inline-block
+      padding-right: 8px
+
+  .post-comment
+    border-top: 1px solid #f5f0eb
+    padding: .5rem 2rem
+
+  .post-reply
+    background-color: #f4f2f1
+    border-top: 1px solid #f5f0eb
+    padding: 1rem 2rem
+    .form
+      display: flex
+    textarea
+      flex: 1
+      margin-right: 8px
+    button
+      flex: 0 0 60px
+
+.post-new
+  .form
+    display: flex
+    margin-bottom: 8px
+  textarea
+    flex: 1
+    margin-right: 8px
+  button
+    flex: 0 0 60px
+
+
+// forms
+input[type=text],
+input[type=email],
+input[type=password],
+textarea
+  font-family: $font-primary
+  font-size: 1rem
+  width: 100%
+  padding: 7px 1rem
+  border-radius: $border-radius
+  border: 1px solid lightgray
+  -webkit-appearance: none
+
+.file-upload
+  input[type=submit]
+    color: red
+    background-color: gray
+
+// buttons
+button,
+.button
+  display: inline-block
+  overflow: hidden
+  padding: .5rem 1rem
+  font-size: 0.875rem
+  cursor: pointer
+  user-select: none
+  transition: all 60ms ease-in-out
+  text-align: center
+  white-space: nowrap
+  text-decoration: none !important
+  appearance: none
+  justify-content: center
+  align-items: center
+  margin-right: .5rem
+  outline: none
+  font-family: $font-primary
+  border-radius: $border-radius
+  &:hover
+    transition: all 60ms ease
+    opacity: 0.9
+  &:active
+    transition: all 60ms ease
+    transform: scale(0.97)
+
+.button-primary
+  background-color: gray
+  border: 1px solid gray
+  color: white
+
+// icons
+.ion-thumbsup,
+.ion-thumbsdown
+  font-size: 1.5rem
+  display: inline
+.ion-thumbsup
+  margin-right: 8px
+
+// alerts
+.notice,
+.alert
+  background-color: #DEE6BD
+  color: #333
+  margin-bottom: $margin
+  padding: 8px $margin
+  border-radius: 4px
+  border: 1px solid lightgray
+
+// gravatar
+.avatar-image
+  img
+    border-radius: $border-radius
+
+// static
+.home
+  background-color: white
+  padding-top: 6rem
+.home-brand
+  font-family: 'Nothing You Could Do', cursive
+  font-size: 36px
+.welcome
+  margin-bottom: 4rem
+  text-align: center
+  p
+    margin-bottom: 2rem
+
+// utilities
+.float-right
+  float: right
+
+.cf
+  margin-bottom: $margin
+  &:before
+    content: " "
+    display: table
+  &:after
+    content: " "
+    display: table
+    clear: both

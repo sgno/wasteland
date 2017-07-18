@@ -1,0 +1,81 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title Wasteland
+    = csrf_meta_tags
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+    %link{:href => "https://fonts.googleapis.com/css?family=Roboto:300,400,700", :rel => "stylesheet"}/
+    %link{:href => "https://fonts.googleapis.com/css?family=Merriweather:300", :rel => "stylesheet"}/
+
+    %link{:href =>'http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css', :rel => 'stylesheet'}
+
+  %body
+    %header
+      .container
+        .brand
+          = link_to 'Wasteland', root_path
+        - if user_signed_in?
+          .nav-left
+            = link_to "Home", user_path(current_user)
+            = link_to "Users", users_path
+        .nav-right
+          - if user_signed_in?
+            = link_to "Log out", destroy_user_session_path, :method => :delete
+          - else
+            = link_to "Sign up", new_user_registration_path
+            = link_to "Log in", new_user_session_path
+  .container
+    .flex
+      - if user_signed_in?
+        %aside
+          %section
+            - if user_signed_in?
+              .avatar-image= image_tag @user.avatar.url(:thumb)
+              %p
+                %i.ion-email
+                = current_user.email
+              %p
+                %i.ion-person
+                = current_user.name
+              %p
+                %i.ion-location
+                = current_user.location
+              %p
+                %i.ion-android-walk
+                = current_user.occupation
+              %p= link_to 'Edit', edit_user_path(current_user)
+
+
+          - if user_signed_in?
+            %section
+              %h4 Friends
+              - current_user.friends.each do |friend|
+                %p
+                  = friend.email
+                  = link_to friendship_path(id: friend.id), :method => :delete do
+                    %span.float-right.ion-trash-a
+              - current_user.inverse_friends.each do |friend|
+                %p
+                  = friend.email
+                  = link_to friendship_path(id: friend.id), :method => :delete do
+                    %span.float-right.ion-trash-a
+
+              %br
+              %h4 Sent Requests
+              - current_user.pending_requests.each do |request|
+                %p= request.email
+
+              %br
+              %h4 Pending Requests
+              - current_user.sent_requests.each do |request|
+                %p
+                  = request.email
+                  = link_to "Accept", friendship_path(id: request.id), method: "put"
+                  = link_to "Decline", friendship_path(id: request.id), method: :delete
+
+      %main
+        - flash.each do
+          .notice= notice
+        = yield

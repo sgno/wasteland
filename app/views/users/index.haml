@@ -1,0 +1,10 @@
+%section
+  %h2 Add Users
+  - @users.each do |user|
+    - unless user.friend?.exists? current_user
+      %p
+        = user.email
+        = link_to "Add friend", friendships_path(:friend_id => user), :method => :post
+    - else
+      %p
+        = user.email

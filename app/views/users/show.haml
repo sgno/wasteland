@@ -1,0 +1,52 @@
+%section.post-new
+  = form_for @post do |f|
+    .form
+      = f.text_area :content, placeholder: "Create new post", rows: '1'
+      = f.submit 'Post', class: 'button button-primary'
+    .file-upload
+      = f.file_field :picture
+
+.post-feed
+  - @feed_items.each do |post|
+    .post
+      %b= post.user.email
+      %p= post.content
+      %p= image_tag post.picture.url if post.picture?
+
+    .post-details
+      %ul
+        %li
+          = post.likes.count
+          likes
+        %li
+          = link_to likes_path(:post_id => post), :method => :post do
+            .ion-thumbsup
+        %li
+          = link_to like_path(:user_id => post), :method => :delete do
+            .ion-thumbsdown
+      %small
+        posted
+        = time_ago_in_words(post.created_at)
+        ago
+
+    - post.comments.each do |comment|
+      .post-comment
+        %small
+          %b= comment.user.email
+          replying to
+          = post.user.email
+        %p= comment.content
+
+    .post-reply
+      = form_for(:comment, url: post_comments_path(post_id: post.id), :method => "post") do |f|
+        = f.text_area :content, placeholder: "Post comment", rows: '1'
+        = f.hidden_field :post_id, :value => post.id
+        = f.submit 'Post', class: 'button button-primary'
+
+:javascript
+  $('#micropost_picture').bind('change', function() {
+    var size_in_megabytes = this.files[0].size/1024/1024;
+    if (size_in_megabytes > 5) {
+      alert('Maximum file size is 5MB. Please choose a smaller file.');
+    }
+  });
